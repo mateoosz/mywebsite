@@ -1,0 +1,8 @@
+a, a:visited {
+    color: purple;
+}
+h1 {
+    color:red;
+}
+    h1:hover{ color: blue;
+}
