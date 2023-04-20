@@ -18,12 +18,12 @@ const contactForm = document.querySelector('#contact-form');
 contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const name = contactForm['first'].value;
+    const first = contactForm['first'].value;
     const last = contactForm['last'].value;
     const email = contactForm['email'].value;
     const message = contactForm['message'].value;
     database.ref('contact').push({
-        first: name,
+        first: first,
         last: last,
         email: email,
         message: message
