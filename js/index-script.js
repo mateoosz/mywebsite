@@ -21,6 +21,11 @@ slider.addEventListener("change", () => {
   localStorage.setItem("darkMode", isDarkMode);
 });
 
+function updateDate() {
+  const dateDisplay = document.getElementById("date-display");
+  const currentDate = new Date();
+  dateDisplay.innerHTML = currentDate.toDateString();
+}
 
 
 
