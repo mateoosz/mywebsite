@@ -27,12 +27,12 @@ const firebaseConfig = {
     const last = contactForm['last'].value;
     const email = contactForm['email'].value;
     const message = contactForm['message'].value;
-    push(ref(database, 'contact'), {
-      first: first,
-      last: last,
-      email: email,
-      message: message
-    });
+    database.ref('contact').push({
+  first: first,
+  last: last,
+  email: email,
+  message: message
+});
   
     contactForm.reset();
   });
