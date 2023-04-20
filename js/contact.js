@@ -1,5 +1,8 @@
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { push } from "firebase/database";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push } from "firebase/database";
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyBI44dObKM8MNQx2rY9l3VSXFGnmYTKr_g",
     authDomain: "contact-8a280.firebaseapp.com",
