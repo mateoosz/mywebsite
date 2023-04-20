@@ -1,5 +1,4 @@
 import { push } from "firebase/database";
-import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push } from "firebase/database";
 
 
