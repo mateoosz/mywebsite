@@ -26,7 +26,7 @@ const firebaseConfig = {
     const email = contactForm['email'].value;
     const message = contactForm['message'].value;
     push(ref(database, 'contact'), {
-      name: first,
+      first: first,
       last: last,
       email: email,
       message: message
