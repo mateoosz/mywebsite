@@ -19,12 +19,12 @@ contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
     
-    const last = contactForm['last'].value;
+    const name = contactForm['name'].value;
     const email = contactForm['email'].value;
     const message = contactForm['message'].value;
     database.ref('contact').push({
         
-        last: last,
+        name: name,
         email: email,
         message: message
     });
