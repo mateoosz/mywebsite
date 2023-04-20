@@ -7,10 +7,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" href="css/style.css"  href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark.css">
+    <link rel href="https://fonts.googleapis.com/css?family=Sofia">
    
     
     <link rel="icon" href="images/favicon.png">
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-database.js"></script>
+
   </head>
   <body>
 
@@ -19,7 +26,7 @@
   <div class="header">
   <header>
 
-          <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #eba1f1;">
+          <nav class="navbar navbar-expand-lg" >
         <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -40,6 +47,15 @@
               </li>
               
             </ul>
+
+            <div id="date-display"></div>
+
+            <div id="clock-display"></div>
+            
+            <div class="form-check form-switch mt-2 ms-3">
+              <input class="form-check-input" type="checkbox" id="slider" />
+              <label class="form-check-label text" for="slider">Dark mode</label>
+            </div>
             
 
           </div>
@@ -54,16 +70,18 @@
   <section id="contact" class="contact">
     <br><br><br>
     <center> <h1> Contact me </h2> </center>
-    <form action="/action_page.php" method="get">
+    <form id="contact">
      <center> <label for="first"> <b>First name:</b></label> </center>
-     <center><input type="text" id="first" name="first"></center>
+     <center><input type="text" id="first" name="first" required></center>
      <center> <label for="last"> <b>Last Name:</b></label> </center>
-     <center><input type="text" id="last" name="last"></center>
+     <center><input type="text" id="last" name="last" required></center>
      <center> <label for="email"> <b>Email adress:</b></label> </center>
-     <center><input type="text" id="email" name="email"></center>
-     <center> <label for="number"> <b>Your number:</b></label> </center>
-     <center><input type="text" id="number" name="number"></center>
-      <br><center><input type="submit" value="Submit"></center>
+     <center><input type="text" id="email" name="email" required></center>
+     
+     
+     <center><label for="message"><b>Message:</b></label></center>
+      <center><textarea id="message" name="message" required></textarea></center>
+      <center> <br><center><input type="submit" value="Submit"></center>
     </section>
       <hr>
       <div class="social-div"></div><p> <b>You can contact me on my social media aswell: </b></p>
@@ -72,6 +90,9 @@
     </div>
     
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script type="module" src="js/contact.js"></script>
+<script src="js/contact-script.js"></script>
+
 
 </body>
 </html>
