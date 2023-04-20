@@ -16,7 +16,7 @@ const firebaseConfig = {
   const database = firebase.database();
   
   
-  const contactForm = document.querySelector('#contact');
+  const contactForm = document.querySelector('#contact-form');
   
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
