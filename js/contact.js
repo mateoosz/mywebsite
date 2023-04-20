@@ -1,5 +1,4 @@
 
-import { getDatabase, ref, push } from "./node_modules/firebase/database";
 
 
 
