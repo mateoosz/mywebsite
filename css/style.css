@@ -120,4 +120,25 @@ h3 {
   padding-top: 70px;
 }
 
+.button {
+  display: inline-block;
+  padding: 12px 24px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  border-radius: 50px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  
+}
+
+.button:hover {
+  background-color: #fff;
+  color: #000;
+  transform: scale(1.05);
+}
+
 
