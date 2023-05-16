@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Sorter</title>
+  <link rel="stylesheet" type="text/css" href="list-styles.css">
+</head>
+<body>
+  <h1>Alphabetical Word List Sorter</h1>
+  
+   <div class="input-container">
+    <input type="text" id="list-input" placeholder="Enter a comma-separated list" onkeydown="handleKeyPress(event)">
+    <button type="submit" onclick="sortList()">Sort</button>
+  </div>
+
+  <div class="output-container">
+    <ul class="sorted-list" id="sorted-list"></ul>
+  </div>
+
+  <div class="button-wrapper">
+    <a href="../examples.html" class="button"> Back to My Portfolio Page</a>
+  </div>
+
+  
+ <script src="/.guides/console.js"> </script>
+ <script src="list-script.js"></script>
+</body>
+</html>

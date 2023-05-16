@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Map</title>
+  <link rel="stylesheet" type="text/css" href="../list-sorter/list-styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #666;
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Interactive Map</h1>
+
+  
+  <div id="map"></div>
+
+  <h2>Place a Marker in the center</h2>
+  <form id="markerForm">
+    <label for="markerName">Marker Name:</label>
+    <input type="text" id="markerName" required>
+    <button type="submit">Place Marker</button>
+  </form>
+
+  <h2>Get Path from Origin to Destination</h2>
+  <form id="directionsForm">
+    <label for="origin">Origin (address):</label>
+    <input type="text" id="origin" required>
+    <br>
+    <label for="destination">Destination (address):</label>
+    <input type="text" id="destination" required>
+    <br>
+    <button type="submit">Get Directions</button>
+  </form>
+
+  <h2>Place a Circle</h2>
+  <form id="circleForm">
+    <label for="circleCenter">Center:</label>
+    <input type="text" id="circleCenter" required>
+    <br>
+    <label for="circleRadius">Radius (in meters):</label>
+    <input type="number" id="circleRadius" required>
+    <br>
+    <button type="submit">Place Circle</button>
+  </form>
+
+  <h2>Place a Rectangle</h2>
+  <form id="rectangleForm">
+    <label for="rectangleBounds">Bounds (opposite corners coordinates, comma-separated):</label>
+    <input type="text" id="rectangleBounds" required>
+    <br>
+    <button type="submit">Place Rectangle</button>
+  </form>
+
+  <h2>Place a Polygon</h2>
+  <form id="polygonForm">
+    <label for="polygonCoordinates">Coordinates (comma-separated):</label>
+    <input type="text" id="polygonCoordinates" required>
+    <br>
+    <button type="submit">Place Polygon</button>
+  </form>
+
+  <h2>Place Polylines</h2>
+  <form id="polylineForm">
+    <label for="polylineCoordinates">Coordinates (comma-separated):</label>
+    <input type="text" id="polylineCoordinates" required>
+    <br>
+    <button type="submit">Place Polylines</button>
+  </form>
+
+  <div class="button-wrapper">
+    <a href="../examples.html" class="button"> Back to My Portfolio Page</a>
+  </div>
+
+
+  <script>
+    let map;
+    let markers = [];
+    let circles = [];
+    let rectangles = [];
+    let polygons = [];
+    let polylines = [];
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 0, lng: 0 },
+        zoom: 2
+      });
+
+      map.addListener('click', showCoordinates);
+
+      const markerForm = document.getElementById('markerForm');
+      markerForm.addEventListener('submit', placeMarker);
+
+      const directionsForm = document.getElementById('directionsForm');
+      directionsForm.addEventListener('submit', getDirections);
+
+      const circleForm = document.getElementById('circleForm');
+  circleForm.addEventListener('submit', placeCircle);
+
+  const rectangleForm = document.getElementById('rectangleForm');
+  rectangleForm.addEventListener('submit', placeRectangle);
+
+  const polygonForm = document.getElementById('polygonForm');
+  polygonForm.addEventListener('submit', placePolygon);
+
+  const polylineForm = document.getElementById('polylineForm');
+  polylineForm.addEventListener('submit', placePolylines);
+
+
+      function placeMarker(event) {
+        event.preventDefault();
+        const name = document.getElementById('markerName').value;
+        const marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          title: name
+        });
+        markers.push(marker);
+      }
+
+      function getDirections(event) {
+        event.preventDefault();
+        const origin = document.getElementById('origin').value;
+        const destination = document.getElementById('destination').value;
+
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        directionsRenderer.setMap(map);
+
+        directionsService.route(
+          {
+            origin: origin,
+            destination: destination,
+            travelMode: 'DRIVING'
+          },
+          function (response, status) {
+            if (status === 'OK') {
+              directionsRenderer.setDirections(response);
+            } else {
+              alert('Directions request failed due to ' + status);
+            }
+          }
+        );
+      }
+
+      function placeCircle(event) {
+  event.preventDefault();
+  const center = document.getElementById('circleCenter').value.split(',');
+  const lat = parseFloat(center[0].trim());
+  const lng = parseFloat(center[1].trim());
+  const radius = parseFloat(document.getElementById('circleRadius').value);
+
+  const circle = new google.maps.Circle({
+    center: { lat: lat, lng: lng },
+    radius: radius,
+    map: map
+  });
+  circles.push(circle);
+}
+
+function placeRectangle(event) {
+  event.preventDefault();
+  const bounds = document.getElementById('rectangleBounds').value.split(',');
+  const lat1 = parseFloat(bounds[0]);
+  const lng1 = parseFloat(bounds[1]);
+  const lat2 = parseFloat(bounds[2]);
+  const lng2 = parseFloat(bounds[3]);
+
+  const rectangle = new google.maps.Rectangle({
+    bounds: {
+      north: Math.max(lat1, lat2),
+      south: Math.min(lat1, lat2),
+      east: Math.max(lng1, lng2),
+      west: Math.min(lng1, lng2)
+    },
+    map: map
+  });
+  rectangles.push(rectangle);
+}
+
+function placePolygon(event) {
+  event.preventDefault();
+  const coordinates = document.getElementById('polygonCoordinates').value.split(',');
+  const path = [];
+
+  for (let i = 0; i < coordinates.length; i += 2) {
+    const lat = parseFloat(coordinates[i]);
+    const lng = parseFloat(coordinates[i + 1]);
+    path.push({ lat: lat, lng: lng });
+  }
+
+  const polygon = new google.maps.Polygon({
+    paths: path,
+    map: map
+  });
+  polygons.push(polygon);
+}
+
+function placePolylines(event) {
+  event.preventDefault();
+  const coordinates = document.getElementById('polylineCoordinates').value.split(',');
+  const path = [];
+
+  for (let i = 0; i < coordinates.length; i += 2) {
+    const lat = parseFloat(coordinates[i]);
+    const lng = parseFloat(coordinates[i + 1]);
+    path.push({ lat: lat, lng: lng });
+  }
+
+  const polyline = new google.maps.Polyline({
+    path: path,
+    map: map
+  });
+  polylines.push(polyline);
+}
+
+
+      function showCoordinates(event) {
+        const infoWindow = new google.maps.InfoWindow();
+
+        const marker = new google.maps.Marker({
+          position: event.latLng,
+          map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+          infoWindow.setContent(
+            'Latitude: ' + event.latLng.lat() + '<br>Longitude: ' + event.latLng.lng()
+          );
+          infoWindow.open(map, marker);
+        });
+      }
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfUvcBZC05DikO-yqD15QR_NSNB0zYCG4&callback=initMap" async defer></script>
+</body>
+</html>
